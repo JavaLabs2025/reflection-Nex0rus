@@ -1,5 +1,6 @@
 package org.example.classes;
 
+import com.google.common.base.MoreObjects;
 import org.example.Generatable;
 
 @Generatable
@@ -45,7 +46,10 @@ public class Product {
 
     @Override
     public String toString() {
-        return super.toString();
+        return MoreObjects.toStringHelper(this)
+                .add("name", name)
+                .add("price", price)
+                .toString();
     }
 
 }

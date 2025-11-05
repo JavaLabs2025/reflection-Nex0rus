@@ -11,7 +11,7 @@ import org.example.generator.typegenerators.TypeGenerator;
 import org.example.generator.typegenerators.WrapperTypeGenerator;
 
 public class Generator {
-    private static final int MAX_RECURSION_DEPTH = 3;
+    private static final int MAX_RECURSION_DEPTH = 5;
     private final List<TypeGenerator> generators;
 
     public Generator(String defaultPackage) {

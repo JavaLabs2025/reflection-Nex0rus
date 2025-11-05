@@ -1,6 +1,7 @@
 package org.example.classes;
 
 import org.example.Generatable;
+import com.google.common.base.MoreObjects;
 
 @Generatable
 public class BinaryTreeNode {
@@ -32,5 +33,14 @@ public class BinaryTreeNode {
 
     public void setRight(BinaryTreeNode right) {
         this.right = right;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("left", left)
+                .add("data", data)
+                .add("right", right)
+                .toString();
     }
 }

@@ -1,5 +1,6 @@
 package org.example.classes;
 
+import com.google.common.base.MoreObjects;
 import org.example.Generatable;
 
 @Generatable
@@ -12,6 +13,8 @@ public class Example {
 
     @Override
     public String toString() {
-        return "Example(" + i + ")";
+        return MoreObjects.toStringHelper(this)
+                .add("i", i)
+                .toString();
     }
 }

@@ -1,5 +1,6 @@
 package org.example.classes;
 
+import com.google.common.base.MoreObjects;
 import org.example.Generatable;
 
 @Generatable
@@ -23,5 +24,14 @@ public class Triangle implements Shape {
     @Override
     public double getPerimeter() {
         return sideA + sideB + sideC;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("sideA", sideA)
+                .add("sideB", sideB)
+                .add("sideC", sideB)
+                .toString();
     }
 }

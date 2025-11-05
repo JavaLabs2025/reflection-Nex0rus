@@ -1,5 +1,6 @@
 package org.example.classes;
 
+import com.google.common.base.MoreObjects;
 import org.example.Generatable;
 
 import java.util.List;
@@ -21,4 +22,11 @@ public class Cart {
     }
 
     // Конструктор, методы добавления и удаления товаров, геттеры и другие методы
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("items", items)
+                .toString();
+    }
 }
