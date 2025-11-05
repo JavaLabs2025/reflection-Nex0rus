@@ -2,6 +2,7 @@ package org.example.generator.typegenerators;
 
 import org.example.generator.Generator;
 
+import java.lang.reflect.Type;
 import java.util.Random;
 
 public class StringTypeGenerator implements TypeGenerator {
@@ -37,7 +38,7 @@ public class StringTypeGenerator implements TypeGenerator {
     }
 
     @Override
-    public Object generate(Class<?> type, int depth, Generator generator) {
+    public Object generate(Class<?> type, Type genericType, int depth, Generator generator) {
         int length = random.nextInt(maxLength - minLength + 1) + minLength;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {

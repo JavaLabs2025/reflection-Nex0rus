@@ -12,7 +12,7 @@ public class CollectionTypeGenerator implements TypeGenerator {
     private final int maxSize;
 
     public static CollectionTypeGenerator withDefault() {
-        return new CollectionTypeGenerator(new Random(), 0, 5);
+        return new CollectionTypeGenerator(new Random(), 1, 5);
     }
 
     public CollectionTypeGenerator(Random random, int minSize, int maxSize) {
@@ -27,14 +27,10 @@ public class CollectionTypeGenerator implements TypeGenerator {
     }
 
     @Override
-    public Object generate(Class<?> type, int depth, Generator generator) {
+    public Object generate(Class<?> type, Type genericType, int depth, Generator generator) {
         Collection<Object> collection = createCollectionInstance(type);
 
-        if (depth >= 3) {
-            return collection;
-        }
-
-        Class<?> elementType = getElementType(type);
+        Type elementType = getElementType(genericType);
         int size = random.nextInt(maxSize - minSize + 1) + minSize;
 
         for (int i = 0; i < size; i++) {
@@ -57,32 +53,11 @@ public class CollectionTypeGenerator implements TypeGenerator {
         return new ArrayList<>();
     }
 
-    private Class<?> getElementType(Class<?> collectionType) {
-        Type genericSuperclass = collectionType.getGenericSuperclass();
-        if (genericSuperclass instanceof ParameterizedType parameterizedType) {
+    private Type getElementType(Type genericType) {
+        if (genericType instanceof ParameterizedType parameterizedType) {
             Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
             if (actualTypeArguments.length > 0) {
-                Type elementType = actualTypeArguments[0];
-                if (elementType instanceof Class) {
-                    return (Class<?>) elementType;
-                }
-            }
-        }
-
-        Type[] genericInterfaces = collectionType.getGenericInterfaces();
-        for (Type genericInterface : genericInterfaces) {
-            if (genericInterface instanceof ParameterizedType parameterizedType) {
-                if (parameterizedType.getRawType() == Collection.class ||
-                    parameterizedType.getRawType() == List.class ||
-                    parameterizedType.getRawType() == Set.class) {
-                    Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
-                    if (actualTypeArguments.length > 0) {
-                        Type elementType = actualTypeArguments[0];
-                        if (elementType instanceof Class) {
-                            return (Class<?>) elementType;
-                        }
-                    }
-                }
+                return actualTypeArguments[0];
             }
         }
 

@@ -1,6 +1,7 @@
 package org.example.generator.typegenerators;
 
 import java.lang.reflect.Proxy;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import org.example.generator.Generator;
@@ -22,7 +23,7 @@ public class InterfaceTypeGenerator implements TypeGenerator {
     }
 
     @Override
-    public Object generate(Class<?> type, int depth, Generator generator) {
+    public Object generate(Class<?> type, Type genericType, int depth, Generator generator) {
         List<Class<?>> implementations = scanner.findImplementations(type);
 
         if (implementations.isEmpty()) {
@@ -49,10 +50,9 @@ public class InterfaceTypeGenerator implements TypeGenerator {
                 interfaceClass.getClassLoader(),
                 new Class[]{interfaceClass},
                 (proxy, method, args) -> {
-                    Class<?> returnType = method.getReturnType();
+                    Type returnType = method.getGenericReturnType();
                     return generator.generateValueOfType(returnType, 0);
                 }
         );
     }
 }
-

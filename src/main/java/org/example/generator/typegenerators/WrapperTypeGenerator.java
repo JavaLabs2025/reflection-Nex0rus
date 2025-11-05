@@ -2,6 +2,7 @@ package org.example.generator.typegenerators;
 
 import org.example.generator.Generator;
 
+import java.lang.reflect.Type;
 import java.util.Random;
 
 public class WrapperTypeGenerator implements TypeGenerator {
@@ -28,7 +29,7 @@ public class WrapperTypeGenerator implements TypeGenerator {
     }
 
     @Override
-    public Object generate(Class<?> type, int depth, Generator generator) {
+    public Object generate(Class<?> type, Type genericType, int depth, Generator generator) {
         if (type == Boolean.class) {
             return random.nextBoolean();
         } else if (type == Byte.class) {

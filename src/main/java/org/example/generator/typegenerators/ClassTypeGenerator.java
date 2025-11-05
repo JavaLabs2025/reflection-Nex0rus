@@ -2,7 +2,6 @@ package org.example.generator.typegenerators;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -24,7 +23,7 @@ public class ClassTypeGenerator implements TypeGenerator {
     }
 
     @Override
-    public Object generate(Class<?> type, int depth, Generator generator) {
+    public Object generate(Class<?> type, Type genericType, int depth, Generator generator) {
         Constructor<?>[] constructors = type.getDeclaredConstructors();
 
         if (constructors.length == 0) {
@@ -52,11 +51,10 @@ public class ClassTypeGenerator implements TypeGenerator {
 
         try {
             Type[] genericParameterTypes = constructor.getGenericParameterTypes();
-            Class<?>[] parameterTypes = constructor.getParameterTypes();
-            Object[] initArgs = new Object[parameterTypes.length];
+            Object[] initArgs = new Object[genericParameterTypes.length];
 
-            for (int i = 0; i < parameterTypes.length; i++) {
-                Class<?> paramType = extractClassFromType(genericParameterTypes[i], parameterTypes[i]);
+            for (int i = 0; i < genericParameterTypes.length; i++) {
+                Type paramType = genericParameterTypes[i];
                 initArgs[i] = generator.generateValueOfType(paramType, depth + 1);
             }
 
@@ -64,18 +62,6 @@ public class ClassTypeGenerator implements TypeGenerator {
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException("Constructor type instantiation failed for " + constructor.getName(), e);
         }
-    }
-
-    private Class<?> extractClassFromType(Type genericType, Class<?> fallbackType) {
-        if (genericType instanceof ParameterizedType parameterizedType) {
-            Type rawType = parameterizedType.getRawType();
-            if (rawType instanceof Class) {
-                return (Class<?>) rawType;
-            }
-        } else if (genericType instanceof Class) {
-            return (Class<?>) genericType;
-        }
-        return fallbackType;
     }
 }
 

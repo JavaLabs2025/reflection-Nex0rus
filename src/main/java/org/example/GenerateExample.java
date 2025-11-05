@@ -5,6 +5,7 @@ import org.example.classes.BinaryTreeNode;
 import org.example.classes.Cart;
 import org.example.classes.Example;
 import org.example.classes.Product;
+import org.example.classes.ProductService;
 import org.example.classes.Rectangle;
 import org.example.classes.Shape;
 import org.example.classes.Triangle;
@@ -24,6 +25,12 @@ public class GenerateExample {
             System.out.println("Generating Cart: " + gen.generateValueOfType(Cart.class));
 
             // System.out.println("Generating BinaryTreeNode: " + gen.generateValueOfType(BinaryTreeNode.class));
+
+            // ProductService productService = (ProductService) gen.generateValueOfType(ProductService.class);
+            // System.out.println(
+            //        "Generating ProductService: " + productService +
+            //        ". Calling getProduct(): " + productService.getProduct()
+            // );
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }
