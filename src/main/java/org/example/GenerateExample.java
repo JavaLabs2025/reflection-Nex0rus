@@ -6,7 +6,7 @@ import org.example.generator.Generator;
 
 public class GenerateExample {
     public static void main(String[] args) {
-        var gen = new Generator();
+        var gen = new Generator("org.example");
         try {
             Object generated = gen.generateValueOfType(Example.class);
             System.out.println(generated);

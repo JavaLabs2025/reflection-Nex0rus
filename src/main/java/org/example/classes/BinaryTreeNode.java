@@ -1,5 +1,8 @@
 package org.example.classes;
 
+import org.example.Generatable;
+
+@Generatable
 public class BinaryTreeNode {
     private Integer data;
     private BinaryTreeNode left;

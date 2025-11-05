@@ -1,5 +1,8 @@
 package org.example.classes;
 
+import org.example.Generatable;
+
+@Generatable
 public class Product {
     private String name;
     private double price;
