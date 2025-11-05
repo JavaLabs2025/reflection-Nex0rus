@@ -90,9 +90,8 @@ public class ImplementationScanner {
                 String subPackageName = packageName.isEmpty() ? file.getName() : packageName + "." + file.getName();
                 classes.addAll(scanDirectoryRecursive(file, subPackageName));
             } else if (file.getName().endsWith(".class")) {
-                String className = packageName.isEmpty()
-                        ? file.getName().substring(0, file.getName().length() - 6)
-                        : packageName + "." + file.getName().substring(0, file.getName().length() - ".class".length());
+                String fileName = file.getName().substring(0, file.getName().length() - ".class".length());
+                String className = packageName.isEmpty() ? fileName : packageName + "." + fileName;
                 Class<?> clazz = loadClass(className);
                 if (clazz != null) {
                     classes.add(clazz);
