@@ -1,8 +1,5 @@
 package org.example;
 
-
-import java.util.List;
-
 import org.example.classes.BinaryTreeNode;
 import org.example.classes.Cart;
 import org.example.classes.Example;
