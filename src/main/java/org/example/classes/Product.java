@@ -1,17 +1,20 @@
 package org.example.classes;
 
+import java.util.List;
+
+import com.google.common.base.MoreObjects;
+import org.example.Generatable;
+
+@Generatable
 public class Product {
     private String name;
     private double price;
+    private List<Product> relatedProducts;
 
-    public Product(String name, double price) {
+    public Product(String name, double price, List<Product> relatedProducts) {
         this.name = name;
         this.price = price;
-    }
-
-    public Product(String name) {
-        this.name = name;
-        this.price = Double.MIN_VALUE;
+        this.relatedProducts = relatedProducts;
     }
 
     public String getName() {
@@ -30,6 +33,14 @@ public class Product {
         this.price = price;
     }
 
+    public List<Product> getRelatedProducts() {
+        return relatedProducts;
+    }
+
+    public void setRelatedProducts(List<Product> relatedProducts) {
+        this.relatedProducts = relatedProducts;
+    }
+
     @Override
     public int hashCode() {
         return super.hashCode();
@@ -42,7 +53,11 @@ public class Product {
 
     @Override
     public String toString() {
-        return super.toString();
+        return MoreObjects.toStringHelper(this)
+                .add("name", name)
+                .add("price", price)
+                .add("relatedProducts", relatedProducts)
+                .toString();
     }
 
 }
